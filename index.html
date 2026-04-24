@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Track Your Shipment</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f7fa; color: #1a1a2e; }
+  .header { background: #1a1a2e; color: white; padding: 16px 32px; display: flex; align-items: center; gap: 12px; }
+  .header h1 { font-size: 1.2rem; font-weight: 700; }
+  .header span { font-size: 0.8rem; color: #94a3b8; }
+  .container { max-width: 720px; margin: 32px auto; padding: 0 16px; }
+  .card { background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); padding: 28px; margin-bottom: 20px; }
+  .tracking-number { font-size: 0.8rem; color: #64748b; margin-bottom: 4px; }
+  .tracking-id { font-size: 1.4rem; font-weight: 700; color: #1a1a2e; letter-spacing: 0.05em; }
+  .status-badge { display: inline-flex; align-items: center; gap: 8px; background: #dbeafe; color: #1e40af; padding: 6px 14px; border-radius: 99px; font-weight: 600; font-size: 0.85rem; margin: 16px 0; }
+  .eta { font-size: 0.9rem; color: #475569; margin-bottom: 20px; }
+  .eta strong { color: #1a1a2e; }
+  .timeline { border-left: 2px solid #e2e8f0; padding-left: 20px; }
+  .event { position: relative; padding-bottom: 20px; }
+  .event:last-child { padding-bottom: 0; }
+  .event::before { content: ''; position: absolute; left: -26px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: #cbd5e1; border: 2px solid white; }
+  .event.active::before { background: #3b82f6; width: 12px; height: 12px; left: -27px; }
+  .event-time { font-size: 0.75rem; color: #94a3b8; }
+  .event-desc { font-size: 0.9rem; color: #1a1a2e; font-weight: 500; margin-top: 2px; }
+  .event-location { font-size: 0.8rem; color: #64748b; }
+  .divider { border: none; border-top: 1px solid #f1f5f9; margin: 20px 0; }
+  .meta { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .meta-item label { font-size: 0.72rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; }
+  .meta-item p { font-size: 0.9rem; color: #1a1a2e; font-weight: 500; margin-top: 2px; }
+</style>
+</head>
+<body>
+<div class="header">
+  <div>
+    <h1>🚚 ExpressTrack</h1>
+    <span>Shipment Tracking Portal</span>
+  </div>
+</div>
+<div class="container">
+  <div class="card">
+    <div class="tracking-number">Tracking Number</div>
+    <div class="tracking-id" id="tracking-id">EX52D95BBD4</div>
+    <div class="status-badge">📦 Out for Delivery — Expected today by 8:00 PM</div>
+    <div class="eta">Your expedited replacement shipment is on its way. <strong>Estimated delivery: Today by 8:00 PM</strong></div>
+    <hr class="divider">
+    <div class="timeline">
+      <div class="event active">
+        <div class="event-time">Today, 09:14 AM</div>
+        <div class="event-desc">Out for delivery</div>
+        <div class="event-location">London Delivery Depot, EC1A 1BB</div>
+      </div>
+      <div class="event">
+        <div class="event-time">Today, 06:32 AM</div>
+        <div class="event-desc">Arrived at delivery facility</div>
+        <div class="event-location">London Sorting Centre, E1W 1AW</div>
+      </div>
+      <div class="event">
+        <div class="event-time">Yesterday, 11:47 PM</div>
+        <div class="event-desc">In transit — departed hub</div>
+        <div class="event-location">Birmingham National Hub, B1 1BB</div>
+      </div>
+      <div class="event">
+        <div class="event-time">Yesterday, 3:22 PM</div>
+        <div class="event-desc">Shipment collected from sender</div>
+        <div class="event-location">Manchester Dispatch Centre, M1 1AE</div>
+      </div>
+      <div class="event">
+        <div class="event-time">Yesterday, 2:05 PM</div>
+        <div class="event-desc">Label created — expedited shipment booked</div>
+        <div class="event-location">Online</div>
+      </div>
+    </div>
+    <hr class="divider">
+    <div class="meta">
+      <div class="meta-item">
+        <label>Service</label>
+        <p>Expedited Next Day</p>
+      </div>
+      <div class="meta-item">
+        <label>Weight</label>
+        <p>0.8 kg</p>
+      </div>
+      <div class="meta-item">
+        <label>Origin</label>
+        <p>Manchester, UK</p>
+      </div>
+      <div class="meta-item">
+        <label>Destination</label>
+        <p>London, UK</p>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const num = params.get('num') || window.location.pathname.split('/').filter(Boolean).pop();
+  if (num && num.length > 4 && num !== 'tracking-demo') {
+    document.getElementById('tracking-id').textContent = num;
+  }
+</script>
+</body>
+</html>
